@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 mainViewModel.Delete(mascotaEliminar);
                                 refrescarMascotas();
-
                                 Toast.makeText(MainActivity.this, "Mascota eliminada", Toast.LENGTH_SHORT).show();
 
                             }
@@ -270,17 +269,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String [] imagenLimpia =imagenDEscargada.split(":");
                         String []espacio=imagenLimpia[1].split(" ");
                         String imagen= "https://dam.org.es/"+espacio[1];
-                        mascota= new Mascota();
-                        mascota.setNombre(nombre);
-                        Log.e("mascota",mascota.getNombre());
-                        mascota.setRaza(raza);
-                        Log.e("mascota",mascota.getRaza());
-                        mascota.setEdad(Integer.valueOf(edad));
-                        Log.e("mascota",mascota.getEdad().toString());
-                        mascota.setImagen(imagen);
-                        Log.e("mascota",mascota.getImagen());
-                        Log.e("mascota",mascota.toString());
-                        mainViewModel.Insert(mascota);
+                        boolean existe=false;
+                        int mascotaexiste=0;
+                        List<Mascota> mascotasexistentes=getListMascota();
+                        for(Mascota m:mascotasexistentes){
+                           if((m.getNombre().equals(nombre))&&(m.getRaza().equals(raza))&&(m.getImagen().equals(imagen))&&(String.valueOf(m.getEdad()).equals(edad))) {
+                             existe=true;
+                             mascotaexiste++;
+                           }
+                        }
+                        if(mascotaexiste>0){
+
+                        }else {
+                            mascota = new Mascota();
+                            mascota.setNombre(nombre);
+                            mascota.setRaza(raza);
+                            mascota.setEdad(Integer.valueOf(edad));
+                            mascota.setImagen(imagen);
+                            mainViewModel.Insert(mascota);
+                        }
                     } else {
                         Log.e("Response bodyERRor",responseBody.toString());
                         mostrarMensaje(response.toString());
@@ -343,5 +350,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
 
 }

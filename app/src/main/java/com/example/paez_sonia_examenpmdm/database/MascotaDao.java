@@ -19,7 +19,6 @@ public abstract interface MascotaDao {
     @Transaction
     @Query("SELECT * FROM mascotas WHERE id LIKE :id")
     LiveData <Mascota> getMascota(Integer id);
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)//Inserta datos en la tabla
     void addMascota(Mascota mascota);
 

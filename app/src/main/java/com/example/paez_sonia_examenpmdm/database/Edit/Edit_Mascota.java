@@ -12,6 +12,7 @@ import com.example.paez_sonia_examenpmdm.database.Mascota;
 import com.example.paez_sonia_examenpmdm.database.MascotaRepositorio;
 import com.example.paez_sonia_examenpmdm.databinding.ActivityAddMascotaBinding;
 import com.example.paez_sonia_examenpmdm.databinding.ActivityEditMascotaBinding;
+import com.squareup.picasso.Picasso;
 
 public class Edit_Mascota extends AppCompatActivity implements View.OnClickListener{
     private ActivityEditMascotaBinding bindingedit;
@@ -44,6 +45,7 @@ public class Edit_Mascota extends AppCompatActivity implements View.OnClickListe
             bindingedit.addImagen.setText(intent.getStringExtra(EXTRA_EDITIMAGEN));
              bindingedit.botonAdd.setOnClickListener(this);
              bindingedit.botonBorrar.setOnClickListener(this);
+            Picasso.get().load(intent.getStringExtra(EXTRA_EDITIMAGEN)).placeholder(R.drawable.errorimagen).error(R.drawable.errorimagen).into(bindingedit.imageView);
         }
 
 

@@ -318,11 +318,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String raza = data.getStringExtra(AddMascota.EXTRA_ADDRAZA);
             String edad = data.getStringExtra(AddMascota.EXTRA_ADDEDAD);
             String imagen = data.getStringExtra(AddMascota.EXTRA_ADDIMAGEN);
-            mascota = new Mascota();
-            mascota.setNombre(nombre);
-            mascota.setEdad(Integer.valueOf(edad));
-            mascota.setRaza(raza);
-            mascota.setImagen(imagen);
+            boolean existe=false;
+            int mascotaexiste=0;
+            List<Mascota> mascotasexistentes=getListMascota();
+            for(Mascota m:mascotasexistentes){
+                if((m.getNombre().equals(nombre))&&(m.getRaza().equals(raza))&&(m.getImagen().equals(imagen))&&(String.valueOf(m.getEdad()).equals(edad))) {
+                    existe=true;
+                    mascotaexiste++;
+                }
+            }
+            if(mascotaexiste>0){
+
+            }else {
+                mascota = new Mascota();
+                mascota.setNombre(nombre);
+                mascota.setEdad(Integer.valueOf(edad));
+                mascota.setRaza(raza);
+                mascota.setImagen(imagen);
+            }
 
 
         } else if (requestCode == EDITRESERVAREQUEST && resultCode == RESULT_OK) {// confirmamos los datos de lamodificacion y si lo cumple modificamoe el registro
@@ -333,20 +346,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
             String nombreEdit = data.getStringExtra(Edit_Mascota.EXTRA_EDITNOMBRE);
-            Log.e("nombre", nombreEdit);
             String razaEdit = data.getStringExtra(Edit_Mascota.EXTRA_EDITRAZA);
-            Log.e("raza", razaEdit);
             String edadEdit = data.getStringExtra(Edit_Mascota.EXTRA_EDITEDAD);
-            Log.e("Edad", edadEdit);
             String imagenEdit = data.getStringExtra(Edit_Mascota.EXTRA_EDITIMAGEN);
-            Log.e("HORAAÑ", imagenEdit);
+            boolean existe=false;
+            int mascotaexiste=0;
+            List<Mascota> mascotasexistentes=getListMascota();
+            for(Mascota m:mascotasexistentes){
+                if((m.getNombre().equals(nombreEdit))&&(m.getRaza().equals(razaEdit))&&(m.getImagen().equals(imagenEdit))&&(String.valueOf(m.getEdad()).equals(edadEdit))) {
+                    existe=true;
+                    mascotaexiste++;
+                }
+            }
+            if(mascotaexiste>0){
 
-            mascota = new Mascota();
-            mascota.setId(id);
-            mascota.setNombre(nombreEdit);
-            mascota.setRaza(razaEdit);
-            mascota.setEdad(Integer.valueOf(edadEdit));
-            mascota.setImagen(imagenEdit);
+            }else {
+                mascota = new Mascota();
+                mascota.setId(id);
+                mascota.setNombre(nombreEdit);
+                mascota.setRaza(razaEdit);
+                mascota.setEdad(Integer.valueOf(edadEdit));
+                mascota.setImagen(imagenEdit);
+                mainViewModel.Update(mascota);
+            }
 
         }
     }

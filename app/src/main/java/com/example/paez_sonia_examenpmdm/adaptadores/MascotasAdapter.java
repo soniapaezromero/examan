@@ -41,7 +41,7 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.MyView
         return mascotaList.get(position);
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre;
+        TextView nombre,edad, raza;
         ImageView foto;
 
 
@@ -50,6 +50,8 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.MyView
             super(itemview);
             this.foto = itemview.findViewById(R.id.imageView);
             this.nombre=itemview.findViewById(R.id.nombremascota);
+            this.edad=itemview.findViewById(R.id.edadmascota);
+            this.raza=itemview.findViewById(R.id.razamascota);
 
 
 
@@ -75,8 +77,8 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.MyView
             String uri= mascota.getImagen().toString();
             Picasso.get().load(uri).placeholder(R.drawable.errorimagen).error(R.drawable.errorimagen).into(holder.foto);
             holder.nombre.setText(mascota.getNombre().toString());
-            Log.e("adapter", mascota.getNombre());
-
+            holder.edad.setText(mascota.getEdad().toString());
+            holder.raza.setText(mascota.getRaza());
         }else{
             holder.nombre.setText("No hay ninguna mascota");
         }
